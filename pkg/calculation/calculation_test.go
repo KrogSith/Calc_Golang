@@ -1,6 +1,7 @@
-package main
+package calculation_test
 
 import (
+	"misha-task/pkg/calculation"
 	"testing"
 )
 
@@ -34,7 +35,7 @@ func TestCalc(t *testing.T) {
 
 	for _, testCase := range testCasesSuccess {
 		t.Run(testCase.name, func(t *testing.T) {
-			val, err := Calc(testCase.expression)
+			val, err := calculation.Calc(testCase.expression)
 			if err != nil {
 				t.Fatalf("successful case %s returns error %s", testCase.expression, err)
 			}
