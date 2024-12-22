@@ -1,11 +1,9 @@
 package main
 
-// import(
-
-// )
+import "calculator/pkg/application"
 
 func main() {
 	app := application.New()
-	app.Run()
+	//app.Run()
 	app.RunServer()
 }

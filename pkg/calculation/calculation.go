@@ -36,6 +36,7 @@ func InfixExprToPostfixString(infixExpr string, operationsStack PushPopper[strin
 					for i := operationsStack.Len() - 1; i >= 0; i-- {
 						element := operationsStack.Pop()
 						if element == "(" || element == "+" || element == "-" {
+							postfixExpr += element
 							break
 						}
 						if element == "*" || element == "/" {
@@ -98,7 +99,7 @@ func StackCalc(postfixExpr string, numbersStack PushPopper[float64]) (float64, e
 			continue
 		}
 		if numbersStack.Len() < 2 {
-			return 0, fmt.Errorf("Enter at least 2 numbers")
+			return 0, fmt.Errorf("Invalid expression")
 		}
 		if element == "+" {
 			n1 := numbersStack.Pop()
@@ -126,7 +127,7 @@ func StackCalc(postfixExpr string, numbersStack PushPopper[float64]) (float64, e
 		}
 	}
 	if numbersStack.Len() != 1 {
-		return 0, fmt.Errorf("Enter at least 1 mathematical operation")
+		return 0, fmt.Errorf("Invalid expression")
 	} else {
 		return numbersStack.Pop(), nil
 	}

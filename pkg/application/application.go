@@ -35,9 +35,10 @@ func New() *Application {
 
 func (a *Application) Run() error {
 	for {
-		log.Println("Input expression")
+		log.Println("Input expression:")
 		reader := bufio.NewReader(os.Stdin)
 		text, err := reader.ReadString('\n')
+		text = text[:len(text)-2]
 		if err != nil {
 			fmt.Println("Failed to read application from console")
 		}
@@ -65,9 +66,9 @@ func CalcHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := calculation.Calc(request.Expression)
 	if err != nil {
-		fmt.Fprintf(w, "ERROR: %s", err.Error())
+		fmt.Fprintf(w, "error: %s", err.Error())
 	} else {
-		fmt.Fprintf(w, "Result: %f", result)
+		fmt.Fprintf(w, "result: %f", result)
 	}
 }
 
