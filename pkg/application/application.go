@@ -1,7 +1,8 @@
-package main
+package application
 
 import (
 	"bufio"
+	"calculator/pkg/calculation"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -40,6 +41,7 @@ func (a *Application) Run() error {
 		if err != nil {
 			fmt.Println("Failed to read application from console")
 		}
+		result, err := calculation.Calc(text)
 		if text == "exit" {
 			log.Println(text, " calculation failed with error: ", err)
 		} else {
@@ -53,7 +55,7 @@ type Request struct {
 }
 
 func CalcHandler(w http.ResponseWriter, r *http.Request) {
-	request = new(Request)
+	request := new(Request)
 	defer r.Body.Close()
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {

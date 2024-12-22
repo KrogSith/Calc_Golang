@@ -1,3 +1,3 @@
-module misha-task
+module calculator
 
 go 1.22.1

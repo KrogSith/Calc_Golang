@@ -1,7 +1,7 @@
 package calculation_test
 
 import (
-	"misha-task/pkg/calculation"
+	"calculator/pkg/calculation"
 	"testing"
 )
 
