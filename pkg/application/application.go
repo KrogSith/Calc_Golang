@@ -39,6 +39,7 @@ func (a *Application) Run() error {
 		reader := bufio.NewReader(os.Stdin)
 		text, err := reader.ReadString('\n')
 		text = text[:len(text)-2]
+		//text = "1+12"
 		if err != nil {
 			fmt.Println("Failed to read application from console")
 		}
