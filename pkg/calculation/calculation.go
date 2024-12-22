@@ -90,6 +90,9 @@ func InfixExprToPostfixString(infixExpr string, operationsStack PushPopper[strin
 		}
 		if s == ")" {
 			element := operationsStack.Pop()
+			if element != "+" && element != "-" && element != "/" && element != "*" {
+				return stack.NewStack[string](), fmt.Errorf("500")
+			}
 			postfixExpr.Push(element)
 			operationsStack.Pop()
 			continue
