@@ -39,7 +39,6 @@ func (a *Application) Run() error {
 		reader := bufio.NewReader(os.Stdin)
 		text, err := reader.ReadString('\n')
 		text = text[:len(text)-2]
-		//text = "1+12"
 		if err != nil {
 			fmt.Println("Failed to read application from console")
 		}
@@ -67,13 +66,18 @@ func CalcHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := calculation.Calc(request.Expression)
 	if err != nil {
-		fmt.Fprintf(w, "error: %s", err.Error())
-	} else {
-		fmt.Fprintf(w, "result: %f", result)
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
+	fmt.Fprintln(w, "{")
+	if err != nil {
+		fmt.Fprintf(w, "    \"error\": \"%s\"", err.Error())
+	} else {
+		fmt.Fprintf(w, "    \"result\": %f", result)
+	}
+	fmt.Fprintln(w, "\n{")
 }
 
 func (a *Application) RunServer() error {
-	http.HandleFunc("/", CalcHandler)
+	http.HandleFunc("/api/v1/calculate", CalcHandler)
 	return http.ListenAndServe(":"+a.config.Addr, nil)
 }
